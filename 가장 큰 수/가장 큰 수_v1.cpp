@@ -19,10 +19,12 @@ std::string solution(std::vector<int> numbers) {
       return a + b > b + a;
     }
   );
-  std::ostringstream ss;
+  
   if (number_strings[0][0] == '0') {
-    ss << "0";
-  } else for (const auto& el : number_strings) {
+    return "0";
+  }
+  std::ostringstream ss;
+  for (const auto& el : number_strings) {
     ss << el;
   }
   return ss.str();
