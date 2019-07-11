@@ -7,6 +7,6 @@ fun main() {
     .map { BlockCreation(Block.valueOf(it[0].toString()), it[1] - '0') }
     .forEach {
       println(it.toString())
-      field.pileUp(it)
+      field.forcePileUp(it)
     }
 }

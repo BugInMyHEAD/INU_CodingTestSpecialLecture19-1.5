@@ -1,23 +1,27 @@
 package pe.buginmyhead.tetristest
 
 class Field(
-  val width: Int, val height: Int
+  width: Int,
+  val height: Int
 ) {
-  private val array = IntArray(width)
-  val ar get() = array.asList()
+  private val array = Array(width) { Column(height) }
+  val width get() = array.size
+  val ar
+    get() = array.asList()
 
-  fun pileUp(blockCreation: BlockCreation) {
-
+  fun forcePileUp(blockCreation: BlockCreation): Boolean {
+    val subarray = array.slice(blockCreation.position until blockCreation.position + 4)
+    return false
   }
 
-  private class Column(
+  class Column(
     height: Int
-  ) {
+  ) : AbstractColumn() {
     private val array = BooleanArray(height)
-    val height get() = array.size
-    var highestBlockPosition = 0
+    override val height
+      get() = array.size
 
-    fun draw(position: Int) {
+    private fun draw(position: Int) {
       if (array[position]) {
         throw NoSuchElementException()
       }
