@@ -4,30 +4,46 @@ class Field(
   width: Int,
   val height: Int
 ) {
-  private val array = Array(width) { Column(height) }
-  val width get() = array.size
-  val ar
+  private val array = Array(width) { Column() }
+  val width
+    get() = array.size
+  val ar: List<AbstractColumn>
     get() = array.asList()
 
   fun forcePileUp(blockCreation: BlockCreation): Boolean {
-    val subarray = array.slice(blockCreation.position until blockCreation.position + 4)
-    return false
+    try {
+      val zipped =
+        array
+          .copyOfRange(blockCreation.position, blockCreation.position + blockCreation.block.size)
+          .zip(blockCreation.block)
+      val positionToPile =
+        zipped
+          .map { it.first.height + it.second.height }
+          .max()!! - 1
+      zipped
+        .forEach {
+          it.first.pileUp(positionToPile, it.second)
+        }
+    } catch (exc: IndexOutOfBoundsException) {
+      return false
+    }
+    return true
   }
 
-  class Column(
-    height: Int
-  ) : AbstractColumn() {
-    private val array = BooleanArray(height)
-    override val height
-      get() = array.size
-
-    private fun draw(position: Int) {
-      if (array[position]) {
+  private inner class Column : AbstractColumn(height) {
+    fun pileUp(position: Int) {
+      if (position < height) {
         throw NoSuchElementException()
       }
       array[position] = true
-      if (position > highestBlockPosition) {
-        highestBlockPosition = position
+      height = position + 1
+    }
+
+    fun pileUp(position: Int, abstractColumn: AbstractColumn) {
+      for (i1 in abstractColumn.size - 1 downTo 0) {
+        if (abstractColumn[i1]) {
+          pileUp(position - i1)
+        }
       }
     }
   }
