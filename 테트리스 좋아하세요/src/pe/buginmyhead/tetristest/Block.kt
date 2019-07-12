@@ -43,6 +43,9 @@ enum class Block(
 
   override fun iterator() = array.iterator()
 
+  /**
+   * Have the array shrink if the last Columns don't have a block piece
+   */
   private fun Array<out AbstractColumn>.shrink(): Array<out AbstractColumn> {
     return sliceArray(0 .. indexOfLast { it.height > 0 })
   }
