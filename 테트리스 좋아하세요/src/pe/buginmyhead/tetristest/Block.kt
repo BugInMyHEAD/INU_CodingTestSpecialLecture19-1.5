@@ -6,7 +6,7 @@ enum class Block(
 ) : Iterable<AbstractColumn> {
   A(
     true,  true,  true,  true,
-    false, true,  false, false
+    false, false, false, false
   ),
   B(
     true,  true,  true,  false,
