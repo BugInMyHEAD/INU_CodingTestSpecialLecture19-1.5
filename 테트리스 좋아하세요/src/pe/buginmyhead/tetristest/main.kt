@@ -9,7 +9,7 @@ fun main() {
       println(blockCreation.toString())
       field.forcePileUp(blockCreation)
       for (i1 in field.height - 1 downTo 0) {
-        field.ar.forEach { abstractColumn ->
+        field.columns.forEach { abstractColumn ->
           print(if (abstractColumn[i1]) 'x' else '.')
         }
         println()

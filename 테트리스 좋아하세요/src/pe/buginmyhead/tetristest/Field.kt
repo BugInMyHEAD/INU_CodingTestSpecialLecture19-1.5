@@ -7,7 +7,7 @@ class Field(
   private val array = Array(width) { Column() }
   val width
     get() = array.size
-  val ar: List<AbstractColumn>
+  val columns: List<AbstractColumn>
     get() = array.asList()
 
   fun forcePileUp(blockCreation: BlockCreation): Boolean {
