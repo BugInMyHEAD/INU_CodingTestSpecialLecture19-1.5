@@ -9,7 +9,8 @@
         "${file}",
         "-std=c++17",
         "-o",
-        "${fileDirname}\\${fileBasenameNoExtension}.exe"
+        //"${fileDirname}\\${fileBasenameNoExtension}.exe"
+        "${workspaceFolder}\\out\\build\\test\\test.exe"
       ],
       "options": {
       }
